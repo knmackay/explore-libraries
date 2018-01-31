@@ -2,27 +2,23 @@
 #' output: github_document
 #' ---
 
-
-## how jenny might do this in a first exploration
-## purposely leaving a few things to change later!
+library(fs)
+library(tidyverse)
 
 #' Which libraries does R search for packages?
 .libPaths()
 
 ## let's confirm the second element is, in fact, the default library
 .Library
-library(fs)
 path_real(.Library)
 
 #' Installed packages
-library(tidyverse)
 ipt <- installed.packages() %>%
   as_tibble()
 
 ## how many packages?
 nrow(ipt)
 
-#' Exploring the packages
 
 ## count some things! inspiration
 ##   * tabulate by LibPath, Priority, or both
@@ -66,3 +62,5 @@ ipt2 %>%
   mutate(github = grepl("github", URL)) %>%
   count(github) %>%
   mutate(prop = n / sum(n))
+
+devtools::session_info()
